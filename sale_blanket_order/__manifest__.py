@@ -6,7 +6,7 @@
     "license": "AGPL-3",
     "author": "Acsone SA/NV, Odoo Community Association (OCA)",
     "version": "18.0.1.0.0",
-    "website": "https://github.com/OCA/sale-workflow",
+    "website": "https://github.com/OCA/sale-blanket",
     "summary": "Blanket Orders",
     "depends": ["uom", "sale_management"],
     "data": [
@@ -22,5 +22,10 @@
         "report/templates.xml",
         "report/report.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "sale_blanket_order/static/src/js/disable_add_order_line.esm.js",
+        ],
+    },
     "installable": True,
 }
