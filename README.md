@@ -17,7 +17,12 @@ sale-blanket
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[sale_order_blanket_order](sale_order_blanket_order/) | 16.0.1.0.0 |  | Manage blanket order and call of ordr
+[sale_order_blanket_order_stock_prebook](sale_order_blanket_order_stock_prebook/) | 16.0.1.0.0 |  | Allow to prebook stock for blanket order
 
 [//]: # (end addons)
 
