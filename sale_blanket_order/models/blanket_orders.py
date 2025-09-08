@@ -500,101 +500,27 @@ class BlanketOrderLine(models.Model):
         else:
             return super()._compute_display_name()
 
-    def _get_real_price_currency(self, product, rule_id, qty, uom, pricelist_id):
-        """Retrieve the price before applying the pricelist
-        :param obj product: object of current product record
-        :param float qty: total quentity of product
-        :param tuple price_and_rule: tuple(price, suitable_rule) coming
-               from pricelist computation
-        :param obj uom: unit of measure of current order line
-        :param integer pricelist_id: pricelist id of sale order"""
-        # Copied and adapted from the sale module
-        PricelistItem = self.env["product.pricelist.item"]
-        field_name = "lst_price"
-        currency_id = None
-        product_currency = None
-        if rule_id:
-            pricelist_item = PricelistItem.browse(rule_id)
-            if pricelist_item._show_discount():
-                while (
-                    pricelist_item.base == "pricelist"
-                    and pricelist_item.base_pricelist_id
-                    and pricelist_item._show_discount()
-                ):
-                    price, rule_id = pricelist_item.base_pricelist_id.with_context(
-                        uom=uom.id
-                    )._get_product_price_rule(product, qty, uom)
-                    pricelist_item = PricelistItem.browse(rule_id)
-
-            if pricelist_item.base == "standard_price":
-                field_name = "standard_price"
-            if pricelist_item.base == "pricelist" and pricelist_item.base_pricelist_id:
-                field_name = "price"
-                product = product.with_context(
-                    pricelist=pricelist_item.base_pricelist_id.id
-                )
-                product_currency = pricelist_item.base_pricelist_id.currency_id
-            currency_id = pricelist_item.pricelist_id.currency_id
-
-        product_currency = (
-            product_currency
-            or (product.company_id and product.company_id.currency_id)
-            or self.env.company.currency_id
-        )
-        if not currency_id:
-            currency_id = product_currency
-            cur_factor = 1.0
-        else:
-            if currency_id.id == product_currency.id:
-                cur_factor = 1.0
-            else:
-                cur_factor = currency_id._get_conversion_rate(
-                    product_currency, currency_id
-                )
-
-        product_uom = product.uom_id.id
-        if uom and uom.id != product_uom:
-            # the unit price is in a different uom
-            uom_factor = uom._compute_price(1.0, product.uom_id)
-        else:
-            uom_factor = 1.0
-
-        return product[field_name] * uom_factor * cur_factor, currency_id.id
-
     def _get_display_price(self):
         # Copied and adapted from the sale module
+        # No need to call _get_pricelist_price_before_discount()
+        # since BO lines cannot have discounts
+        # TODO: handle combos the way Odoo does in the sale module
         self.ensure_one()
-        self.product_id.ensure_one()
+        pricelist_price = self._get_pricelist_price()
+        return pricelist_price
 
-        pricelist_price = self.pricelist_item_id._compute_price(
-            product=self.product_id,
-            quantity=self.original_uom_qty or 1.0,
-            uom=self.product_uom,
-            date=fields.Date.today(),
-            currency=self.currency_id,
-        )
-
-        if not self.pricelist_item_id:
-            # No pricelist rule found => no discount from pricelist
-            return pricelist_price
-
-        base_price = self._get_pricelist_price_before_discount()
-
-        # negative discounts (= surcharge) are included in the display price
-        return max(base_price, pricelist_price)
-
-    def _get_pricelist_price_before_discount(self):
+    def _get_pricelist_price(self):
         # Copied and adapted from the sale module
         self.ensure_one()
         self.product_id.ensure_one()
-
-        return self.pricelist_item_id._compute_price_before_discount(
+        price = self.pricelist_item_id._compute_price(
             product=self.product_id,
             quantity=self.original_uom_qty or 1.0,
             uom=self.product_uom,
             date=fields.Date.today(),
             currency=self.currency_id,
         )
+        return price
 
     @api.onchange("product_id", "original_uom_qty")
     def onchange_product(self):
