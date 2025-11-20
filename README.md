@@ -21,7 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[sale_blanket_order](sale_blanket_order/) | 18.0.1.1.0 |  | Blanket Orders
+[sale_blanket_order](sale_blanket_order/) | 18.0.1.2.0 |  | Blanket Orders
 
 [//]: # (end addons)
 
