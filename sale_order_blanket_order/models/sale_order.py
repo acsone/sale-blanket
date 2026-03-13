@@ -11,7 +11,10 @@ from odoo.osv import expression
 from odoo.osv.expression import FALSE_DOMAIN
 from odoo.tools import float_compare
 
-from odoo.addons.sale.models.sale_order import READONLY_FIELD_STATES
+from odoo.addons.sale.models.sale_order import (
+    LOCKED_FIELD_STATES,
+    READONLY_FIELD_STATES,
+)
 
 
 class SaleOrder(models.Model):
@@ -107,7 +110,16 @@ class SaleOrder(models.Model):
         "with this field set to True.",
         default=False,
     )
-
+    blanket_strict_packaging = fields.Boolean(
+        string="Strict Packaging ?",
+        help="If checked, the system will enforce that the products are "
+        "called off with the same packaging as the one defined on the blanket"
+        " order lines. If not checked, the system will not take care of the "
+        "packaging defined on the blanket order lines when calling off "
+        "products nor the one on the call-off order lines.",
+        states=LOCKED_FIELD_STATES,
+        tracking=True,
+    )
     create_call_off_from_so_if_possible = fields.Boolean(
         default=lambda self: self.env.company.create_call_off_from_so_if_possible,
         help="When this option is enabled, the system will automatically create "
