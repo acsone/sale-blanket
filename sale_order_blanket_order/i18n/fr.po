@@ -264,6 +264,17 @@ msgid "ID"
 msgstr ""
 
 #. module: sale_order_blanket_order
+#: model:ir.model.fields,help:sale_order_blanket_order.field_sale_order__blanket_strict_packaging
+#: model:ir.model.fields,help:sale_order_blanket_order.field_sale_order_line__blanket_strict_packaging
+msgid ""
+"If checked, the system will enforce that the products are called off with "
+"the same packaging as the one defined on the blanket order lines. If not "
+"checked, the system will not take care of the packaging defined on the "
+"blanket order lines when calling off products nor the one on the call-off "
+"order lines."
+msgstr ""
+
+#. module: sale_order_blanket_order
 #: model:ir.model.fields,help:sale_order_blanket_order.field_res_company__create_call_off_from_so_if_possible
 #: model:ir.model.fields,help:sale_order_blanket_order.field_res_config_settings__create_call_off_from_so_if_possible
 msgid ""
@@ -555,6 +566,16 @@ msgid "Stock Rule"
 msgstr "Règle de stock minimum"
 
 #. module: sale_order_blanket_order
+#: model:ir.model.fields,field_description:sale_order_blanket_order.field_sale_order_line__blanket_strict_packaging
+msgid "Strict Packaging"
+msgstr ""
+
+#. module: sale_order_blanket_order
+#: model:ir.model.fields,field_description:sale_order_blanket_order.field_sale_order__blanket_strict_packaging
+msgid "Strict Packaging ?"
+msgstr ""
+
+#. module: sale_order_blanket_order
 #. odoo-python
 #: code:addons/sale_order_blanket_order/wizards/sale_order_deliver_remaining_wizard.py:0
 #, python-format
@@ -729,6 +750,16 @@ msgstr ""
 "commande-cadre. Cette quantité est la différence entre la quantité non "
 "encore livrée ou faisant partie d'une livraison en attente et la quantité "
 "commandée."
+
+#. module: sale_order_blanket_order
+#. odoo-python
+#: code:addons/sale_order_blanket_order/models/sale_order_line.py:0
+#, python-format
+msgid ""
+"The quantity to deliver on the call-off order line must be compatible with "
+"the packaging defined on the blanket order line. (Product: '%(product)s', "
+"Packaging: '%(packaging)s', Quantity: '%(quantity)s %(uom)s')"
+msgstr ""
 
 #. module: sale_order_blanket_order
 #. odoo-python
