@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-17 14:30+0000\n"
-"PO-Revision-Date: 2026-01-11 17:43+0000\n"
+"PO-Revision-Date: 2026-03-19 18:45+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: sale_order_blanket_order
 #: model_terms:ir.ui.view,arch_db:sale_order_blanket_order.sale_order_form_view
@@ -272,6 +272,11 @@ msgid ""
 "blanket order lines when calling off products nor the one on the call-off "
 "order lines."
 msgstr ""
+"Se selezionata, questa opzione farà in modo che i prodotti vengano prelevati "
+"con lo stesso imballaggio definito nelle righe dell'ordine quadro. Se non "
+"selezionata, il sistema non terrà conto né dell'imballaggio definito nelle "
+"righe dell'ordine quadro né di quello definito nelle righe degli ordini di "
+"prelievo."
 
 #. module: sale_order_blanket_order
 #: model:ir.model.fields,help:sale_order_blanket_order.field_res_company__create_call_off_from_so_if_possible
@@ -561,12 +566,12 @@ msgstr "Regola di giacenza"
 #. module: sale_order_blanket_order
 #: model:ir.model.fields,field_description:sale_order_blanket_order.field_sale_order_line__blanket_strict_packaging
 msgid "Strict Packaging"
-msgstr ""
+msgstr "Imballaggio ristretto"
 
 #. module: sale_order_blanket_order
 #: model:ir.model.fields,field_description:sale_order_blanket_order.field_sale_order__blanket_strict_packaging
 msgid "Strict Packaging ?"
-msgstr ""
+msgstr "Imballaggio ristretto?"
 
 #. module: sale_order_blanket_order
 #. odoo-python
@@ -749,6 +754,10 @@ msgid ""
 "the packaging defined on the blanket order line. (Product: '%(product)s', "
 "Packaging: '%(packaging)s', Quantity: '%(quantity)s %(uom)s')"
 msgstr ""
+"La quantità da consegnare sulla riga dell'ordine di fornitura deve essere "
+"compatibile con l'imballaggio definito sulla riga dell'ordine quadro. "
+"(Prodotto: '%(product)s', Imballaggio: '%(packaging)s', Quantità: '%"
+"(quantity)s %(uom)s')"
 
 #. module: sale_order_blanket_order
 #. odoo-python
